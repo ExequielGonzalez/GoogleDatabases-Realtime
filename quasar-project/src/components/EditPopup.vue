@@ -35,34 +35,34 @@
 import { ref } from 'vue';
 
 const name = ref('PasswordRecoveryView');
+const emit = defineEmits(['save-task']);
 let popUpStarted = ref(false);
 
 const title = ref('');
 const description = ref('');
 
-let id
-let state
-const emit = defineEmits(['save-task']);
+let task = {
+  id: 0,
+  title: '',
+  description: '',
+  state: false,
+};
 
-
-
-const show = (props) => {  
-  id = props.id;
-  state = props.state;
-  title.value = props.title;
-  description.value = props.description;
-  popUpStarted.value = true;  
+const show = (props) => {
+  task = props;
+  title.value = task.title;
+  description.value = task.description;
+  popUpStarted.value = true;
 };
 const hide = () => {
-    popUpStarted.value = false;
+  popUpStarted.value = false;
 };
-const saveTask = () => { 
-  hide()
+const saveTask = () => {
+  hide();
   emit('save-task', {
-    id,
+    ...task,
     title: title.value,
     description: description.value,
-    state,
   });
 };
 
