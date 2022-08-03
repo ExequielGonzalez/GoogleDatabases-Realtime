@@ -1,7 +1,7 @@
 <template>
   <q-item class="q-my-sm items-center">
     <q-item-section avatar top>
-      <q-checkbox v-model="state" @update:model-value="saveTask(this.id)" />
+      <q-checkbox v-model="state" @update:model-value="saveTask(this)" />
     </q-item-section>
 
     <q-item-section top @click="editTask(this)">
@@ -26,7 +26,7 @@ const name = ref('Task');
 const $emit = defineEmits(['delete-task', 'edit-task', 'save-task']);
 const props = defineProps({
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   title: {
@@ -43,8 +43,8 @@ const props = defineProps({
   },
 });
 
-const saveTask = (id) => {
-  $emit('save-task', id);
+const saveTask = (task) => {
+  $emit('save-task', task);
 };
 
 const editTask = (task) => {
@@ -52,6 +52,6 @@ const editTask = (task) => {
 };
 
 const deleteTask = (task) => {
-  $emit('delete-task', task.id);
+  $emit('delete-task', task);
 };
 </script>

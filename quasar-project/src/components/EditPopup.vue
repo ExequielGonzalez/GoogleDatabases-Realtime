@@ -42,7 +42,7 @@ const title = ref('');
 const description = ref('');
 
 let task = {
-  id: 0,
+  id: '0',
   title: '',
   description: '',
   state: false,
