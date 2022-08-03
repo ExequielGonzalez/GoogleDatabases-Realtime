@@ -12,8 +12,8 @@
               <div class="text-primary text-h5 q-mb-md text-center">Editar tarea.</div>
             </div>
           </div>
-          <div class="row q-mb-sm justify-center ">
-            <div class="col-xs-10  self-center">
+          <div class="row q-mb-sm justify-center">
+            <div class="col-xs-10 self-center">
               <div class="q-mb-md">
                 <q-input outlined dense rounded type="text" v-model="title" label="Título" lazy-rules="ondemand"> </q-input>
               </div>
@@ -36,27 +36,38 @@ import { ref } from 'vue';
 
 const name = ref('PasswordRecoveryView');
 let popUpStarted = ref(false);
+
 const title = ref('');
 const description = ref('');
-const emit = defineEmits(['didTapSend']);
 
-const show = (props) => {
-  //   title.value = props ?? ref('');
-  //TODO: !Implementar pinia y traer las tasks del store
-  popUpStarted.value = true;
+let id
+let state
+const emit = defineEmits(['save-task']);
+
+
+
+const show = (props) => {  
+  id = props.id;
+  state = props.state;
+  title.value = props.title;
+  description.value = props.description;
+  popUpStarted.value = true;  
 };
 const hide = () => {
-  title.value = '';
-  description.value = '';
-  popUpStarted.value = false;
+    popUpStarted.value = false;
 };
-const saveTask = () => {
-  emit('save-task', title.value);
+const saveTask = () => { 
+  hide()
+  emit('save-task', {
+    id,
+    title: title.value,
+    description: description.value,
+    state,
+  });
 };
 
 defineExpose({
   show,
   hide,
-  saveTask,
 });
 </script>

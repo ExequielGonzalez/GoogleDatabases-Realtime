@@ -1,10 +1,10 @@
 <template>
   <q-item class="q-my-sm items-center">
     <q-item-section avatar top>
-      <q-checkbox v-model="state" />
+      <q-checkbox v-model="state" @update:model-value="saveTask(this.id)" />
     </q-item-section>
 
-    <q-item-section top>
+    <q-item-section top @click="editTask(this)">
       <q-item-label lines="1">
         <span class="text-weight-medium">{{ title }}</span>
       </q-item-label>
@@ -13,7 +13,7 @@
 
     <q-item-section top side>
       <div class="text-grey-8 q-gutter-xs">
-        <q-btn size="12px" flat dense round icon="delete" color="red" />
+        <q-btn size="12px" flat dense round icon="delete" color="red" @click="deleteTask(this.id)" />
       </div>
     </q-item-section>
   </q-item>
@@ -23,7 +23,12 @@
 import { defineComponent, ref } from 'vue';
 
 const name = ref('Task');
+const $emit = defineEmits(['delete-task', 'edit-task', 'save-task']);
 const props = defineProps({
+  id: {
+    type: Number,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -37,4 +42,16 @@ const props = defineProps({
     required: true,
   },
 });
+
+const saveTask = (id) => {
+  $emit('save-task', id);
+};
+
+const editTask = (task) => {
+  $emit('edit-task', task);
+};
+
+const deleteTask = (task) => {
+  $emit('delete-task', task.id);
+};
 </script>
