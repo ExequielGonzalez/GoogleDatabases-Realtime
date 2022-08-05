@@ -57,7 +57,7 @@ const saveTask = (newTask) => {
   }
 };
 
-const deleteTask = (task) => {
+const deleteTask = (task) => {  
   tasksStore.deleteTask(task);
 };
 </script>

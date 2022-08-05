@@ -43,10 +43,8 @@ export async function updateTaskAPI(task) {
     description: task.description,
     state: task.state,
   });
-
-
 }
 
-  export async function deleteTaskAPI(task) {
-    await remove(refs.deleteTask(task.id))
-  }
+export async function deleteTaskAPI(task) {
+  await remove(refs.deleteTask(task.id));
+}
